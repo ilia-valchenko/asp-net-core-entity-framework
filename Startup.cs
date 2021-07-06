@@ -1,3 +1,5 @@
+using DataAccessLayer;
+using DataAccessLayer.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +28,9 @@ namespace asp_net_core_entity_framework
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "asp_net_core_entity_framework", Version = "v1" });
             });
+
+            services.AddDbContext<MyDbContext>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
