@@ -28,16 +28,16 @@ namespace asp_net_core_entity_framework.Controllers
         }
 
         [HttpGet("GetUser")]
-        public async Task<User> GetAsync(Guid id)
+        public async Task<IActionResult> GetAsync(Guid id)
         {
             var user = await _repository.GetAsync(id);
 
             if (user == null)
             {
-                return new NotFoundObjectResult();
+                return new NotFoundResult();
             }
 
-            return user;
+            return Ok(user);
         }
 
         [HttpPost("CreateUser")]
