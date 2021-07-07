@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataAccessLayer.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,11 @@ namespace DataAccessLayer.Repositories
         public async Task<IEnumerable<User>> GetAsync()
         {
             return await _dbContext.Users.ToListAsync();
+        }
+
+        public async Task<User> GetAsync(Guid id)
+        {
+            return await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
     }
 }

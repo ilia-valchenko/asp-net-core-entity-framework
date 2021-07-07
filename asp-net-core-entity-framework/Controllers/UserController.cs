@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DataAccessLayer.Entities;
 using DataAccessLayer.Repositories;
@@ -20,13 +21,26 @@ namespace asp_net_core_entity_framework.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllUsers")]
         public async Task<IEnumerable<User>> GetAsync()
         {
             return await _repository.GetAsync();
         }
 
-        [HttpPost]
+        [HttpGet("GetUser")]
+        public async Task<User> GetAsync(Guid id)
+        {
+            var user = await _repository.GetAsync(id);
+
+            if (user == null)
+            {
+                return new NotFoundObjectResult();
+            }
+
+            return user;
+        }
+
+        [HttpPost("CreateUser")]
         public async Task CreateAsync(User user)
         {
             await _repository.CreateAsync(user);
