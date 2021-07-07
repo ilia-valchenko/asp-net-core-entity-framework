@@ -27,10 +27,9 @@ namespace asp_net_core_entity_framework.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateAsync(User user)
+        public async Task CreateAsync(User user)
         {
-            var resultCode = await _repository.CreateAsync(user);
-            return resultCode != 3 ? new StatusCodeResult(201) : new StatusCodeResult(500);
+            await _repository.CreateAsync(user);
         }
     }
 }
